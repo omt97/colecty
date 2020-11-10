@@ -1,4 +1,5 @@
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
 import 'package:colecty/src/models/item_model.dart';
 import 'package:colecty/src/util/utils.dart';
@@ -24,6 +25,7 @@ class _EditItemState extends State<EditItem> {
   String numero;
 
   final coleccionesBloc = new ColeccionesBloc();
+  final userBloc = new UserBloc();
 
   @override
   void initState() {
@@ -37,9 +39,9 @@ class _EditItemState extends State<EditItem> {
   Widget build(BuildContext context) {
     return Container(
       child: AlertDialog(
-          backgroundColor: Colors.deepPurple[50],
+          backgroundColor: getAppColor(userBloc.color, 50),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Text('Nueva Coleccion', style: TextStyle(color: Colors.deepPurple,),),
+          title: Text('Nueva Coleccion', style: TextStyle(color: getAppColor(userBloc.color, 500),),),
           content: Container(
             height: 400,
             child: Form(
@@ -63,7 +65,7 @@ class _EditItemState extends State<EditItem> {
   Widget _crearNombre(){
     return Row(
       children: [
-        Icon(Icons.title, color: Colors.deepPurple,),
+        Icon(Icons.title, color: getAppColor(userBloc.color, 500),),
         Expanded(child: SizedBox(width: double.infinity,)),
         Container(
           width: 200,
@@ -96,7 +98,7 @@ class _EditItemState extends State<EditItem> {
       width: 150,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.deepPurple[100],
+          color: getAppColor(userBloc.color, 100),
           width: 2
         ),
         borderRadius: BorderRadius.circular(20)
@@ -107,7 +109,7 @@ class _EditItemState extends State<EditItem> {
           Expanded(child: SizedBox(width: double.infinity,)),
           IconButton(
             icon : Icon(Icons.image),
-            color: Colors.deepPurple,
+            color: getAppColor(userBloc.color, 500),
             onPressed: ()async{ await _takePhoto(ImageSource.gallery);},
           ),
           Expanded(child: SizedBox(width: double.infinity,)),
@@ -115,7 +117,7 @@ class _EditItemState extends State<EditItem> {
           Expanded(child: SizedBox(width: double.infinity,)),
           IconButton(
             icon : Icon(Icons.camera),
-            color: Colors.deepPurple,
+            color: getAppColor(userBloc.color, 500),
             onPressed: () async{ await _takePhoto(ImageSource.camera);},
           ),
           Expanded(child: SizedBox(width: double.infinity,)),
@@ -202,7 +204,7 @@ class _EditItemState extends State<EditItem> {
       icon: Icon(Icons.save),
       label: Text('Guardar'),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      color: Colors.deepPurple,
+      color: getAppColor(userBloc.color, 500),
       textColor: Colors.white,
     );
   }

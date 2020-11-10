@@ -17,6 +17,7 @@ class DatabaseProvider {
 
     return await collectionCollection.doc(uid).set({
       'email' : user,
+      'color' : 'lila'
     }).then((value) { 
       //print(uid);
       collectionCollection
@@ -456,6 +457,19 @@ class DatabaseProvider {
     return cm;
   }
 
+  //obtener color usuario
+  Future<String> obtenerColor() async{
+
+    String color = 'lila';
+
+    await collectionCollection
+      .doc(uid)
+      .get().then((value) {
+        color = value.data()['color'];
+      });
+    
+    return color;
+  }
 
   CollectionModel _crearCollectionModel(Map<String, dynamic> data, List<Item> items, String id) {
     return new CollectionModel(

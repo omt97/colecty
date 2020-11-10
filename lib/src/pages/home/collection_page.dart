@@ -1,5 +1,7 @@
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
+import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/item_list.dart';
 import 'package:colecty/src/widgets/iteminfo_list.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,7 @@ class _CollectionPageState extends State<CollectionPage> {
   bool lastStatus = true;
 
   final coleccionesBloc = new ColeccionesBloc();
+  final userBloc = new UserBloc();
 
   @override
   void initState() {
@@ -86,12 +89,12 @@ class _CollectionPageState extends State<CollectionPage> {
         shape: Border(
           bottom: BorderSide(
                width:3,
-               color : vista ? Colors.deepPurple[400] : Colors.transparent
+               color : vista ? getAppColor(userBloc.color, 400) : Colors.transparent
          ),
         ), 
         minWidth: width/2, 
         child: RaisedButton(
-          child: Text('Item', style: TextStyle(color: vista ?  Colors.deepPurple[400] : Colors.grey[600]),),
+          child: Text('Item', style: TextStyle(color: vista ?  getAppColor(userBloc.color, 400) : Colors.grey[600]),),
           disabledElevation: 0,
           focusElevation: 0,
           highlightElevation: 0,
@@ -107,12 +110,12 @@ class _CollectionPageState extends State<CollectionPage> {
         shape: Border(
           bottom: BorderSide(
                width:3,
-               color : vista ? Colors.transparent : Colors.deepPurple[400]
+               color : vista ? Colors.transparent : getAppColor(userBloc.color, 400)
          ),
         ), 
         minWidth: width/2, 
         child: RaisedButton(
-          child: Text('Info Item', style: TextStyle(color: vista ? Colors.grey[600] : Colors.deepPurple[400]),),
+          child: Text('Info Item', style: TextStyle(color: vista ? Colors.grey[600] : getAppColor(userBloc.color, 400)),),
           disabledElevation: 0,
           focusElevation: 0,
           highlightElevation: 0,
@@ -137,14 +140,14 @@ class _CollectionPageState extends State<CollectionPage> {
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(20.0),
         ),
-        color: Colors.deepPurple[100],
+        color: getAppColor(userBloc.color, 100),
       ),
       
       child: Stack(children: [
         Row(children: [
-          IconButton(color: Colors.deepPurple[800], icon: Icon(Icons.arrow_circle_down), onPressed: (){Navigator.pop(context);}),
+          IconButton(color: getAppColor(userBloc.color, 800), icon: Icon(Icons.arrow_circle_down), onPressed: (){Navigator.pop(context);}),
           Expanded(child: SizedBox(width: double.infinity,)),
-          IconButton(color: Colors.deepPurple[800], icon: Icon(Icons.filter_alt_rounded), onPressed: (){_opcionesFilter(context, coleccion);}),
+          IconButton(color: getAppColor(userBloc.color, 800), icon: Icon(Icons.filter_alt_rounded), onPressed: (){_opcionesFilter(context, coleccion);}),
         ],),
         _infoColeccion(coleccion, width),
       ],)
@@ -251,9 +254,9 @@ class _CollectionPageState extends State<CollectionPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.deepPurple[50],
+          backgroundColor: getAppColor(userBloc.color, 50),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Text('Mostrar', style: TextStyle(color: Colors.deepPurple,),),
+          title: Text('Mostrar', style: TextStyle(color: getAppColor(userBloc.color, 500),),),
           content: Container(
             height: 250,
             child: Column(
@@ -265,7 +268,7 @@ class _CollectionPageState extends State<CollectionPage> {
                   }, 
                   child: Text(
                     'Todos', 
-                    style: TextStyle(color: coleccionesBloc.filtroItem == 'todas' ? Colors.deepPurple : Colors.grey),)),
+                    style: TextStyle(color: coleccionesBloc.filtroItem == 'todas' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
                 Divider(),
                 TextButton(
                   onPressed: (){
@@ -274,7 +277,7 @@ class _CollectionPageState extends State<CollectionPage> {
                   },
                   child: Text(
                     'Marcadas', 
-                    style: TextStyle(color: coleccionesBloc.filtroItem == 'tengis' ? Colors.deepPurple : Colors.grey),)),
+                    style: TextStyle(color: coleccionesBloc.filtroItem == 'tengis' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
                 Divider(),
                 TextButton(
                   onPressed: (){
@@ -283,7 +286,7 @@ class _CollectionPageState extends State<CollectionPage> {
                   },
                   child: Text(
                     'Faltas', 
-                    style: TextStyle(color: coleccionesBloc.filtroItem == 'faltis' ? Colors.deepPurple : Colors.grey),)),
+                    style: TextStyle(color: coleccionesBloc.filtroItem == 'faltis' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
                 Divider(),
                 TextButton(
                   onPressed: (){
@@ -292,7 +295,7 @@ class _CollectionPageState extends State<CollectionPage> {
                   },
                   child: Text(
                     'Repetidas', 
-                    style: TextStyle(color: coleccionesBloc.filtroItem == 'repes' ? Colors.deepPurple : Colors.grey),)),
+                    style: TextStyle(color: coleccionesBloc.filtroItem == 'repes' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
 
               ]
             ),

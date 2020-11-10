@@ -1,6 +1,8 @@
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
 import 'package:colecty/src/pages/home/collection_page.dart';
+import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/create_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -14,21 +16,18 @@ class CollectionCards extends StatefulWidget {
 class _CollectionCardsState extends State<CollectionCards> {
   final collectionBloc = new ColeccionesBloc();
 
+  final userBloc = new UserBloc();
+
   @override
   Widget build(BuildContext context) {
 
 
     final _screenSize = MediaQuery.of(context).size;
-    //collectionBloc.obtenerColecciones();
 
     return StreamBuilder<List<CollectionModel>>(
       stream: collectionBloc.collectionsStream, //cuando se modifique salta
       builder: (BuildContext context, AsyncSnapshot<List<CollectionModel>> snapshot) {
 
-        //collectionBloc.imprimirCosas();
-
-
-        
         if(!snapshot.hasData) {
           return Center(child: CircularProgressIndicator());
         }
@@ -90,7 +89,7 @@ class _CollectionCardsState extends State<CollectionCards> {
   Widget _imagenColeccion(String title, String photo){
     return Container(
       decoration: BoxDecoration(
-        color: Colors.deepPurple[50],
+        color: getAppColor(userBloc.color, 50),
         borderRadius: BorderRadius.circular(20.0)
       ),
       height: 150.0,
@@ -128,7 +127,7 @@ class _CollectionCardsState extends State<CollectionCards> {
               Expanded(child: SizedBox(width: double.infinity,)),
               IconButton(
                 iconSize: 15,
-                icon: Icon(Icons.favorite, color: collectionModel.favourite ? Colors.deepPurple : Colors.grey,), 
+                icon: Icon(Icons.favorite, color: collectionModel.favourite ? getAppColor(userBloc.color, 500) : Colors.grey,), 
                 onPressed: (){
                   collectionModel.favourite 
                                             ? collectionBloc.coleccionFavorita(collectionModel.uid, false)
@@ -137,15 +136,7 @@ class _CollectionCardsState extends State<CollectionCards> {
             ],
           ),
           Expanded(child: SizedBox(width: double.infinity,)),
-          /*Row(
-            children: <Widget>[
-              _numeroTexto('Total', 300),
-              Expanded(child: SizedBox(width: double.infinity,)),
-              _numeroTexto('Marcada', 100),
-              Expanded(child: SizedBox(width: double.infinity,)),
-              _numeroTexto('Faltas', 200),
-            ],
-          ),*/
+
           Text('Cantidad: ${collectionModel.noFaltas}/${collectionModel.total}' , style: TextStyle(color: Colors.grey[700], fontSize: 12)),
           Expanded(child: SizedBox(width: double.infinity,)),
           LinearPercentIndicator(
@@ -160,54 +151,4 @@ class _CollectionCardsState extends State<CollectionCards> {
     );
 
   }
-
-  /*_deleteOption(BuildContext context, String uidCol){
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.deepPurple[50],
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Text('¿Eliminar colección?', style: TextStyle(color: Colors.deepPurple,),),
-          content: Container(
-            height: 50,
-            child: Row(
-              children: <Widget>[
-                RaisedButton(
-                  elevation: 0,
-                  disabledElevation: 0,
-                  focusElevation: 0,
-                  highlightElevation: 0,
-                  hoverElevation: 0,
-                  child: Text('Eliminar'),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                  color: Colors.red,
-                  textColor: Colors.white,
-                  onPressed: () {
-                    collectionBloc.borrarColeccion(uidCol);
-                    Navigator.of(context).pop();
-                  } 
-                ),
-                Expanded(child: SizedBox(width: double.infinity,)),
-                RaisedButton(
-                  elevation: 0,
-                  disabledElevation: 0,
-                  focusElevation: 0,
-                  highlightElevation: 0,
-                  hoverElevation: 0,
-                  child: Text('Atras'),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                  color: Colors.deepPurple,
-                  textColor: Colors.white,
-                  onPressed: () => Navigator.of(context).pop()
-                )
-              ]
-            )
-          )
-        );
-      }
-    );
-
-  }*/
 }

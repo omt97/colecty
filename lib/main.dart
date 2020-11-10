@@ -5,6 +5,7 @@ import 'package:colecty/src/pages/authentication/signin.dart';
 import 'package:colecty/src/pages/home/collection_page.dart';
 import 'package:colecty/src/pages/home/home_page.dart';
 import 'package:colecty/src/pages/home/navigation_page.dart';
+import 'package:colecty/src/pages/home/setting/aplicacion_page.dart';
 import 'package:colecty/src/pages/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
           CollectionPage.routeName  : (BuildContext context) => CollectionPage(),
           SignIn.routeName  : (BuildContext context) => SignIn(),
           Register.routeName  : (BuildContext context) => Register(),
+          AplicacionPage.routeName  : (BuildContext context) => AplicacionPage(),
         },
         theme: ThemeData(
           primaryColor: Colors.greenAccent

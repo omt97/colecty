@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:colecty/src/models/user_model.dart';
 import 'package:colecty/src/provider/auth.dart';
+import 'package:colecty/src/provider/database.dart';
 
 class UserBloc {
 
@@ -50,13 +51,16 @@ class UserBloc {
   Future<dynamic> loginWithEmailAndPassword(String email, String password) async {
 
     UserModel user = await authProvider.loginWithEmailAndPassword(email, password);
+    user.color = await DatabaseProvider(uid: this.uid).obtenerColor();
     _userController.sink.add(user);
     print('asa');
     if (user != null){
-      uid = user.uid;
-      color = user.color;
-      email = user.email;
+      this.uid = user.uid;
+      this.color = user.color;
+      this.email = email;
     }
+
+    print(this.uid.toString() + ' ---- ' + this.color.toString() + ' ---- ' + this.email.toString());
 
     return user;
 

@@ -1,4 +1,5 @@
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
 import 'package:colecty/src/models/item_model.dart';
 import 'package:colecty/src/util/utils.dart';
@@ -20,6 +21,7 @@ class _ItemListState extends State<ItemList> {
   int _tengui;
 
   final coleccionesBloc = new ColeccionesBloc();
+  final userBloc = new UserBloc();
 
   @override
   void initState() {
@@ -102,11 +104,11 @@ class _ItemListState extends State<ItemList> {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
-          side: BorderSide(color: Colors.deepPurple[300], width: 3.0)
+          side: BorderSide(color: getAppColor(userBloc.color, 300), width: 3.0)
         ),
         child: Center(child: Text(getNumeroName(name))),
-        color: (item.quantity > 0) ? Colors.deepPurple[300] : Colors.transparent,
-        textColor: (item.quantity > 0) ? Colors.white : Colors.deepPurple[300],
+        color: (item.quantity > 0) ? getAppColor(userBloc.color, 300) : Colors.transparent,
+        textColor: (item.quantity > 0) ? Colors.white : getAppColor(userBloc.color, 300),
         onLongPress: (){
           setState(() {
             if (item.quantity > 0) coleccionesBloc.restarItemCantidad(widget.collectionModel, item, _tengui);

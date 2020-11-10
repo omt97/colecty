@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
+import 'package:colecty/src/util/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart' as syspaths;
@@ -22,6 +24,7 @@ class _CreateCollectionState extends State<CreateCollection> {
   final formKey = GlobalKey<FormState>();
 
   final coleccionesBloc = new ColeccionesBloc();
+  final userBloc = new UserBloc();
 
   String title;
   String photo;
@@ -39,9 +42,9 @@ class _CreateCollectionState extends State<CreateCollection> {
 
     return Container(
       child: AlertDialog(
-          backgroundColor: Colors.deepPurple[50],
+          backgroundColor: getAppColor(userBloc.color, 50),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Text('Nueva Coleccion', style: TextStyle(color: Colors.deepPurple,),),
+          title: Text('Nueva Coleccion', style: TextStyle(color: getAppColor(userBloc.color, 500),),),
           content: Container(
             height: 400,
             child: Form(
@@ -66,7 +69,7 @@ class _CreateCollectionState extends State<CreateCollection> {
   Widget _crearNombre(){
     return Row(
       children: [
-        Icon(Icons.title, color: Colors.deepPurple,),
+        Icon(Icons.title, color: getAppColor(userBloc.color, 500),),
         Expanded(child: SizedBox(width: double.infinity,)),
         Container(
           width: 200,
@@ -99,7 +102,7 @@ class _CreateCollectionState extends State<CreateCollection> {
       width: 150,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.deepPurple[100],
+          color: getAppColor(userBloc.color, 100),
           width: 2
         ),
         borderRadius: BorderRadius.circular(20)
@@ -110,7 +113,7 @@ class _CreateCollectionState extends State<CreateCollection> {
           Expanded(child: SizedBox(width: double.infinity,)),
           IconButton(
             icon : Icon(Icons.image),
-            color: Colors.deepPurple,
+            color: getAppColor(userBloc.color, 500),
             onPressed: ()async{ await _takePhoto(ImageSource.gallery);},
           ),
           Expanded(child: SizedBox(width: double.infinity,)),
@@ -118,7 +121,7 @@ class _CreateCollectionState extends State<CreateCollection> {
           Expanded(child: SizedBox(width: double.infinity,)),
           IconButton(
             icon : Icon(Icons.camera),
-            color: Colors.deepPurple,
+            color: getAppColor(userBloc.color, 500),
             onPressed: () async{ await _takePhoto(ImageSource.camera);},
           ),
           Expanded(child: SizedBox(width: double.infinity,)),
@@ -167,7 +170,7 @@ class _CreateCollectionState extends State<CreateCollection> {
 
     return Row(
       children: [
-        Icon(Icons.format_list_numbered, color: Colors.deepPurple,),
+        Icon(Icons.format_list_numbered, color: getAppColor(userBloc.color, 500),),
         Expanded(child: SizedBox(width: double.infinity,)),
         Container(
           width: 200,
@@ -251,7 +254,7 @@ class _CreateCollectionState extends State<CreateCollection> {
       icon: Icon(Icons.save),
       label: Text('Guardar'),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      color: Colors.deepPurple,
+      color: getAppColor(userBloc.color, 500),
       textColor: Colors.white,
     );
   }

@@ -1,8 +1,9 @@
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
-import 'package:colecty/src/bloc/validator.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
 import 'package:colecty/src/pages/home/home_page.dart';
 import 'package:colecty/src/pages/home/settings_page.dart';
+import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/create_collection.dart';
 
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _NavigationPageState extends State<NavigationPage> {
   int currentIndex = 0;
 
   final coleccionesBloc = new ColeccionesBloc();
+  final userBloc = new UserBloc();
 
   final formKey = GlobalKey<FormState>();
 
@@ -33,9 +35,9 @@ class _NavigationPageState extends State<NavigationPage> {
         elevation: 0.0,
         
         foregroundColor: Colors.white,
-        hoverColor: Colors.deepPurple[700],
-        splashColor: Colors.deepPurple[700],
-        focusColor: Colors.deepPurple[700],
+        hoverColor: getAppColor(userBloc.color, 700),
+        splashColor: getAppColor(userBloc.color, 700),
+        focusColor: getAppColor(userBloc.color, 700),
         child: Icon(Icons.add),
         onPressed: () {
           showDialog(
@@ -44,7 +46,7 @@ class _NavigationPageState extends State<NavigationPage> {
             builder: (context) {return CreateCollection(new CollectionModel(), false);}
           );
         },
-      backgroundColor: Colors.deepPurple[700]
+      backgroundColor: getAppColor(userBloc.color, 700)
       ),
     );
   }
@@ -67,12 +69,12 @@ class _NavigationPageState extends State<NavigationPage> {
   Widget _crearBottomNavigationBar() {
 
     return BottomNavigationBar(
-      unselectedItemColor: Colors.deepPurple[200],
+      unselectedItemColor: getAppColor(userBloc.color, 200),
       elevation: 0,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       currentIndex: currentIndex,
-      selectedItemColor: Colors.deepPurple[700],
+      selectedItemColor: getAppColor(userBloc.color, 700),
       onTap: (index){
         setState(() {
           currentIndex = index;

@@ -1,4 +1,6 @@
 import 'package:colecty/src/bloc/user_bloc.dart';
+import 'package:colecty/src/pages/home/setting/aplicacion_page.dart';
+import 'package:colecty/src/util/utils.dart';
 import 'package:flutter/material.dart';
 
 class Settings extends StatefulWidget {
@@ -14,18 +16,17 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple[100],
+      backgroundColor: getAppColor(_userBloc.color, 100),
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.deepPurple[200],
-          title: Text('Settings', style: TextStyle(color: Colors.deepPurple),)
+          backgroundColor: getAppColor(_userBloc.color, 200),
+          title: Text('Settings', style: TextStyle(color: getAppColor(_userBloc.color, 500)),)
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            //Divider(thickness: 1.5, color: Colors.deepPurple,),
             _createButton(
-              icono: Icon(Icons.account_box, color: Colors.deepPurple), 
+              icono: Icon(Icons.account_box, color: getAppColor(_userBloc.color, 500)), 
               texto:'Cuenta', 
               onPressed: () async{
                 
@@ -33,15 +34,15 @@ class _SettingsState extends State<Settings> {
             ),
             Divider(thickness: 1.5,),
             _createButton(
-              icono: Icon(Icons.app_settings_alt, color: Colors.deepPurple), 
+              icono: Icon(Icons.app_settings_alt, color: getAppColor(_userBloc.color, 500)), 
               texto:'Aplicacion', 
               onPressed: () async{
-                
+                Navigator.pushNamed(context, 'applicacion');
               },
             ),
             Divider(thickness: 1.5,),
             _createButton(
-              icono: Icon(Icons.logout, color: Colors.deepPurple), 
+              icono: Icon(Icons.logout, color: getAppColor(_userBloc.color, 500)), 
               texto:'Log out', 
               onPressed: () async{
                 await _userBloc.logout();
@@ -62,7 +63,7 @@ class _SettingsState extends State<Settings> {
           children: [
             icono,
             SizedBox(width: 10,),
-            Text(texto, style: TextStyle(color: Colors.deepPurple))
+            Text(texto, style: TextStyle(color: getAppColor(_userBloc.color, 500)))
           ],
         ),
       ),

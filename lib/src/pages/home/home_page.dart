@@ -1,4 +1,6 @@
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
+import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/barra_buscadora.dart';
 import 'package:colecty/src/widgets/collection_cards.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ class HomePage extends StatelessWidget {
 
   static final routeName = 'home';
   final coleccionesBloc = new ColeccionesBloc();
+  final userBloc = new UserBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +24,11 @@ class HomePage extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.deepPurple[100],
+          color: getAppColor(userBloc.color, 100),
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Colors.deepPurple[100], Colors.white]
+              colors: [getAppColor(userBloc.color, 200), Colors.white]
           )
         ),
         child: Column(
@@ -35,7 +38,7 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 0.0),
             Row(children: <Widget>[
               Expanded(child: SizedBox(width: double.infinity,)),
-              IconButton(icon: Icon(Icons.filter_alt, color: Colors.deepPurple[700],), onPressed: (){
+              IconButton(icon: Icon(Icons.filter_alt, color: getAppColor(userBloc.color, 700),), onPressed: (){
                 _opcionesFilter(context);
               }),
               SizedBox(width: 10)
@@ -62,9 +65,9 @@ class HomePage extends StatelessWidget {
       context: context,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.deepPurple[50],
+          backgroundColor: getAppColor(userBloc.color, 50),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Text('Ordenar Por', style: TextStyle(color: Colors.deepPurple,),),
+          title: Text('Ordenar Por', style: TextStyle(color: getAppColor(userBloc.color, 500),),),
           content: Container(
             height: 250,
             child: Column(
@@ -76,7 +79,7 @@ class HomePage extends StatelessWidget {
                   }, 
                   child: Text(
                     'Todos', 
-                    style: TextStyle(color: coleccionesBloc.filtro == 'todas' ? Colors.deepPurple : Colors.grey),)),
+                    style: TextStyle(color: coleccionesBloc.filtro == 'todas' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
                 Divider(),
                 TextButton(
                   onPressed: (){
@@ -85,7 +88,7 @@ class HomePage extends StatelessWidget {
                   },
                   child: Text(
                     'Favoritas', 
-                    style: TextStyle(color: coleccionesBloc.filtro == 'favoritas' ? Colors.deepPurple : Colors.grey),)),
+                    style: TextStyle(color: coleccionesBloc.filtro == 'favoritas' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
                 Divider(),
                 TextButton(
                   onPressed: (){
@@ -94,7 +97,7 @@ class HomePage extends StatelessWidget {
                   },
                   child: Text(
                     'Mas completa', 
-                    style: TextStyle(color: coleccionesBloc.filtro == 'asc' ? Colors.deepPurple : Colors.grey),)),
+                    style: TextStyle(color: coleccionesBloc.filtro == 'asc' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
                 Divider(),
                 TextButton(
                   onPressed: (){
@@ -103,7 +106,7 @@ class HomePage extends StatelessWidget {
                   },
                   child: Text(
                     'Menos completa', 
-                    style: TextStyle(color: coleccionesBloc.filtro == 'desc' ? Colors.deepPurple : Colors.grey),)),
+                    style: TextStyle(color: coleccionesBloc.filtro == 'desc' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
 
               ]
             ),

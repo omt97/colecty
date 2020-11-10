@@ -1,8 +1,10 @@
 
 
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
 import 'package:colecty/src/pages/home/collection_page.dart';
+import 'package:colecty/src/util/utils.dart';
 import 'package:flutter/material.dart';
 
 class DataSearch extends SearchDelegate{
@@ -13,6 +15,7 @@ class DataSearch extends SearchDelegate{
   final collectionModel = new CollectionModel();
 
   final coleccionesBloc = new ColeccionesBloc();
+  final userBloc = new UserBloc();
 
 
   ThemeData appBarTheme(BuildContext context) {
@@ -20,7 +23,7 @@ class DataSearch extends SearchDelegate{
     final ThemeData theme = Theme.of(context);
     assert(theme != null);
     return theme.copyWith(
-      primaryColor: Colors.deepPurple[400],
+      primaryColor: getAppColor(userBloc.color, 400),
       primaryIconTheme: theme.primaryIconTheme.copyWith(color: Colors.white),
       primaryColorBrightness: Brightness.light,
     );
@@ -59,7 +62,7 @@ class DataSearch extends SearchDelegate{
       child: Container(
         height: 100.0,
         width: 100.0,
-        color: Colors.deepPurple,
+        color: getAppColor(userBloc.color, 500),
         child: Text(seleccion)
       ),
     );
@@ -94,7 +97,7 @@ class DataSearch extends SearchDelegate{
                   padding: EdgeInsets.symmetric(vertical: 15.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.0),
-                    color: Colors.deepPurple[50]
+                    color: getAppColor(userBloc.color, 50)
                   ),
                   child: ListTile(
                     leading: _imagenColeccion(colecciones[i].title),

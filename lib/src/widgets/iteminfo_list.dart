@@ -1,6 +1,8 @@
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
+import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
 import 'package:colecty/src/models/item_model.dart';
+import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/edit_item.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +22,7 @@ class _ItemInfoListState extends State<ItemInfoList> {
   int _tengui;
 
   final coleccionesBloc = new ColeccionesBloc();
+  final userBloc = new UserBloc();
 
   @override
   void initState() {
@@ -32,10 +35,6 @@ class _ItemInfoListState extends State<ItemInfoList> {
 
     _items = widget.collectionModel.tenguis;
     _tengui = widget.collectionModel.noFaltas;
-
-    //final _screenSize = MediaQuery.of(context).size;
-
-    //int numeroElementos = ((_screenSize.width)/60).truncate();
 
     return ListView.builder(
       itemCount: _obtenerListas(_items.length, 2),
@@ -104,7 +103,7 @@ class _ItemInfoListState extends State<ItemInfoList> {
         //elevation: 0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: Colors.deepPurple[200],
+          color: getAppColor(userBloc.color, 200),
         ),
         child: Column(
           children: <Widget>[
@@ -120,10 +119,7 @@ class _ItemInfoListState extends State<ItemInfoList> {
             Container(child: _infoItem(name, item ),)
           ],
         ),
-        
-        //textColor: (cantidad > 0) ? Colors.white : Colors.deepPurple[300],
-        //onLongPress: null,
-        //onPressed: null,
+
       ),
     );
   }
@@ -136,13 +132,13 @@ class _ItemInfoListState extends State<ItemInfoList> {
         Row(
           children: <Widget>[
             IconButton(icon: Icon(Icons.remove_circle, size: 15,), 
-              onPressed: (item.quantity > 0) ? () {if (item.quantity > 0) coleccionesBloc.restarItemCantidad(widget.collectionModel, item, _tengui);} : null, color: Colors.deepPurple[700]
+              onPressed: (item.quantity > 0) ? () {if (item.quantity > 0) coleccionesBloc.restarItemCantidad(widget.collectionModel, item, _tengui);} : null, color: getAppColor(userBloc.color, 700)
             ),
             Expanded(child: SizedBox(width: double.infinity,)),
             Text(item.quantity.toString()),
             Expanded(child: SizedBox(width: double.infinity,)),
             IconButton(icon: Icon(Icons.add_circle, size: 15,), 
-              onPressed: (){coleccionesBloc.sumarItemCantidad(widget.collectionModel, item, _tengui);}, color: Colors.deepPurple[700],
+              onPressed: (){coleccionesBloc.sumarItemCantidad(widget.collectionModel, item, _tengui);}, color: getAppColor(userBloc.color, 700),
             )
           ],
         )
