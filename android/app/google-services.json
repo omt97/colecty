@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "222425130626",
+    "firebase_url": "https://colecty-8bf6a.firebaseio.com",
+    "project_id": "colecty-8bf6a",
+    "storage_bucket": "colecty-8bf6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222425130626:android:49fe2d4def9c4ecc64369b",
+        "android_client_info": {
+          "package_name": "com.finishcollections.colecty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222425130626-lidlmdho8d93p68c8hdjeb5md62268ad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA026tpuzTLQXtV3BTSHmhg0RNQzVaM52w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222425130626-lidlmdho8d93p68c8hdjeb5md62268ad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
