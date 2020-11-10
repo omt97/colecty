@@ -457,7 +457,6 @@ class DatabaseProvider {
   }
 
 
-
   CollectionModel _crearCollectionModel(Map<String, dynamic> data, List<Item> items, String id) {
     return new CollectionModel(
       uid         : id,

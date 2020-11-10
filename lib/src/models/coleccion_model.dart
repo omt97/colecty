@@ -49,7 +49,6 @@ class CollectionModel {
         "photo": photo,
         "title": title,
         "total": total,
-        //"tenguis": List<dynamic>.from(tenguis.map((x) => x)),
         "porcentage": porcentage,
         "repes": repes,
         "faltas": faltas,

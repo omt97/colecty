@@ -22,7 +22,6 @@ class ColeccionesBloc {
 
   ColeccionesBloc._internal(){
     obtenerColecciones();
-    //obtenerColeccion('pedos2');
   }
 
   final _coleccionesController = StreamController<List<CollectionModel>>.broadcast();
@@ -44,10 +43,6 @@ class ColeccionesBloc {
     else if (filtro == 'asc') _coleccionesController.sink.add(await DatabaseProvider(uid: ub.uid).coleccionesAsc());
     else if (filtro == 'desc') _coleccionesController.sink.add(await DatabaseProvider(uid: ub.uid).coleccionesDesc());
     else _coleccionesController.sink.add(await DatabaseProvider(uid: ub.uid).colecciones());
-    /*if (filtro == 'favoritas') _coleccionesController.sink.add(await DBProvider.db.getCollectionsFav());
-    
-    else if (filtro == 'desc') _coleccionesController.sink.add(await DBProvider.db.getCollectionsDesc());
-    else _coleccionesController.sink.add(await DBProvider.db.getCollections());*/
   }
 
   obtenerColeccionesSearch(String word) async{
@@ -64,83 +59,44 @@ class ColeccionesBloc {
       print(c.noFaltas);
       _coleccionController.sink.add(c);
     }
-    /*if (filtroItem == 'tengis') _coleccionController.sink.add(await DBProvider.db.getCollectionId(title, ' > 0'));
-    else if (filtroItem == 'faltis') _coleccionController.sink.add(await DBProvider.db.getCollectionId(title, ' = 0'));
-    else if (filtroItem == 'repes') _coleccionController.sink.add(await DBProvider.db.getCollectionId(title, ' > 1'));
-    else _coleccionController.sink.add(await DBProvider.db.getCollectionId(title, ' > -1'));*/
     
   }
 
   agregarColeccion(CollectionModel collectionModel) async{
     await DatabaseProvider(uid: ub.uid).nuevaColeccion(collectionModel);
-    //await DBProvider.db.nuevaColeccionRaw(collectionModel);
     obtenerColecciones();
   }
 
   editarColeccion(CollectionModel collectionModel, String oldTitle, int oldTotal, String oldPhoto) async{
     await DatabaseProvider(uid: ub.uid).editarColeccion(collectionModel, oldTitle, oldTotal, oldPhoto);
-    //if (oldTotal != collectionModel.total) await DBProvider.db.updateColeccionTotal(oldTitle, 'total', collectionModel.total, collectionModel.total-oldTotal);
-    //if (oldTitle != collectionModel.title) await DBProvider.db.updateColeccionTitle(oldTitle, 'title', collectionModel.title);
-    
-    //await DBProvider.db.updateColeccionVariable(oldTitle, 'title', collectionModel.title);
     obtenerColecciones();
   }
 
   editarItem(Item ci, String oldName, String oldPhoto, CollectionModel cm) async{
     await DatabaseProvider(uid: ub.uid).editarItem(ci, oldName, oldPhoto, cm.uid);
-    //if (oldTotal != collectionModel.total) await DBProvider.db.updateColeccionTotal(oldTitle, 'total', collectionModel.total, collectionModel.total-oldTotal);
-    //if (oldTitle != collectionModel.title) await DBProvider.db.updateColeccionTitle(oldTitle, 'title', collectionModel.title);
-    
-    //await DBProvider.db.updateColeccionVariable(oldTitle, 'title', collectionModel.title);
     obtenerColeccion(cm);
     obtenerColecciones();
   }
 
   borrarColeccion(String uidCol) async{
     await DatabaseProvider(uid: ub.uid).borrarColeccion(uidCol);
-    //await DBProvider.db.deleteColeccion(titleColeccion);
     obtenerColecciones();
   }
 
   sumarItemCantidad(CollectionModel cm, Item item, int noFaltas) async{
     CollectionModel newCm = await DatabaseProvider(uid: ub.uid).sumarItem(cm, item, noFaltas);
-   /* await DBProvider.db.updateItem(titleColeccion, name, '+', 1);
-    if (cantidad == 0){
-      await DBProvider.db.updateColeccionVariable(titleColeccion, 'noFaltas', 'noFaltas + 1');
-      await DBProvider.db.updateColeccionVariable(titleColeccion, 'Faltas', 'Faltas - 1');
-      await DBProvider.db.updateColeccionVariable(titleColeccion, 'porcentage', por);
-    }else{
-      await DBProvider.db.updateColeccionVariable(titleColeccion, 'repes', 'repes + 1');
-    }*/
     obtenerColecciones();
     obtenerColeccion(newCm);
   }
 
   restarItemCantidad(CollectionModel cm, Item item, int noFaltas) async{
     CollectionModel newCm = await DatabaseProvider(uid: ub.uid).restarItem(cm, item, noFaltas);
-   /* await DBProvider.db.updateItem(titleColeccion, name, '+', 1);
-    if (cantidad == 0){
-      await DBProvider.db.updateColeccionVariable(titleColeccion, 'noFaltas', 'noFaltas + 1');
-      await DBProvider.db.updateColeccionVariable(titleColeccion, 'Faltas', 'Faltas - 1');
-      await DBProvider.db.updateColeccionVariable(titleColeccion, 'porcentage', por);
-    }else{
-      await DBProvider.db.updateColeccionVariable(titleColeccion, 'repes', 'repes + 1');
-    }*/
     obtenerColecciones();
     obtenerColeccion(newCm);
   }
 
-  /*Future<List<CollectionModel>> getColecciones() async{
-    return await DBProvider.db.getCollections();
-  }*/
-
-  /*Future<CollectionModel> getColeccion(String title) async{
-    return await DBProvider.db.getCollectionId(title, ' > -1');
-  }*/
-
   coleccionFavorita(String uidCol, bool favorita) async{
     await DatabaseProvider(uid: ub.uid).editarFavColeccion(uidCol, favorita);
-    //await DBProvider.db.updateColeccionVariable(titleColeccion, 'favourite', '$favorita');
     obtenerColecciones();
   }
 

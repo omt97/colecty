@@ -22,9 +22,6 @@ class _NavigationPageState extends State<NavigationPage> {
 
   final formKey = GlobalKey<FormState>();
 
-  //final collectionProvider = new CollectionProvider();
-  final validator = new Validators();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
