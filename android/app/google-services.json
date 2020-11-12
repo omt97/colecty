@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "222425130626-4untues7fq3r9u6aphffb82p80m9pba4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.finishcollections.colecty",
+            "certificate_hash": "28d98ee107c53f95f81ac43dfdaa9184dc2cc704"
+          }
+        },
+        {
           "client_id": "222425130626-lidlmdho8d93p68c8hdjeb5md62268ad.apps.googleusercontent.com",
           "client_type": 3
         }

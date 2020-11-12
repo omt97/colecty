@@ -176,7 +176,7 @@ class _SignInState extends State<SignIn> {
                   SizedBox(height: 20),
                   Text(error, style: TextStyle(color: Colors.red),),
                   Container(
-                    height: 35,
+                    height: 45,
                     width: 185, 
                     child: RaisedButton(
                       color: Colors.white,
@@ -193,7 +193,16 @@ class _SignInState extends State<SignIn> {
                           Text('Sign in with Google')
                         ]
                       ),
-                      onPressed: (){print('iniciar session con google');}
+                      onPressed: ()async{
+                        setState(() {
+                          loading = true;
+                        });
+                        dynamic result = await _userBloc.loginWithGoogle();
+                        print(result == null);
+                        setState(() {
+                          loading = false;
+                        });
+                      }
                     ),
                   )
                 ]

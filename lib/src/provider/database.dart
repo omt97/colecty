@@ -88,6 +88,19 @@ class DatabaseProvider {
     });
   }
       
+  //existe user
+  Future<bool> existUser() async{
+
+    bool existe = false;
+
+    await collectionCollection
+      .doc(uid).get().then((value) async{
+        existe = (value.data() != null);
+      });
+    print('existe     : --------' + existe.toString());
+    return existe;
+  }
+
   //crear nueva coleccion
   Future nuevaColeccion(CollectionModel cm) async {
     await collectionCollection
