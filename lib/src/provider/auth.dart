@@ -12,7 +12,7 @@ class AuthProvider {
 
   UserModel _userFromFirebaseUser(User user){
     print('imprimir uid: ' + user.uid.toString());
-    return user != null ? UserModel(uid: user.uid) : null;
+    return user != null ? UserModel(uid: user.uid, email: user.email) : null;
   }
 
   AuthProvider(){

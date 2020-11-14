@@ -5,6 +5,7 @@ import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
 import 'package:colecty/src/util/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:path/path.dart' as p;
@@ -132,8 +133,8 @@ class _CreateCollectionState extends State<CreateCollection> {
           
           ClipRRect(
             borderRadius: BorderRadius.circular(18.0),
-            child: Image(
-              image: AssetImage(photo),
+            child: Image.file(
+              File(photo),
               fit: BoxFit.cover,
               width: 150,
               height: 150,
@@ -266,7 +267,7 @@ class _CreateCollectionState extends State<CreateCollection> {
 
     if (imageFile == null) return null;
 
-    final appDir = await syspaths.getApplicationDocumentsDirectory();
+    final appDir = await syspaths.getExternalStorageDirectory();
     final fileName = p.basename(imageFile.path);
     final savedImage = await File(imageFile.path).copy('${appDir.path}/$fileName');
 

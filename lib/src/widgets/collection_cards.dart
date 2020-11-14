@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
@@ -5,6 +7,7 @@ import 'package:colecty/src/pages/home/collection_page.dart';
 import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/create_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class CollectionCards extends StatefulWidget {
@@ -100,12 +103,9 @@ class _CollectionCardsState extends State<CollectionCards> {
         tag: title,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15.0), 
-          child:Image(
-            image: AssetImage(photo),
-            fit: BoxFit.cover,
+          child: _getImagen(photo),
           ),
         ),
-      ),
     );
   }
 
@@ -149,6 +149,17 @@ class _CollectionCardsState extends State<CollectionCards> {
         ]
       ),
     );
+
+  }
+
+  Image _getImagen(String photo) {
+    try{
+      print(photo.toString() + ' eeesttaa esss');
+      return Image.file(File(photo), fit: BoxFit.cover,);
+    } catch (e) {
+      print(e);
+      return Image.asset('assets/logo.png', fit: BoxFit.cover);
+    }
 
   }
 }

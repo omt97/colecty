@@ -9,6 +9,8 @@
 	<string>Necesito acceso a la camara</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Necesito acceso al microfono</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Necesito acceso a la galeria</string>
 
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

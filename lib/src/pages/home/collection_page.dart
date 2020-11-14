@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
@@ -82,6 +84,7 @@ class _CollectionPageState extends State<CollectionPage> {
     );
   }
 
+  //selecciona si es item o info item
   Widget _tipoVista(double width, bool vista){
     return Row(
       children: <Widget>[
@@ -131,6 +134,7 @@ class _CollectionPageState extends State<CollectionPage> {
     );
   }
 
+  //crea un widget donde se ve foto y info de la coleccion
   Widget _crearAppBar(BuildContext context, CollectionModel coleccion, double width) {
     return Container(
       padding: EdgeInsets.only(top: 20),
@@ -158,6 +162,7 @@ class _CollectionPageState extends State<CollectionPage> {
     );
   }
 
+  //te pone la variable y valor
   Widget _numeroTexto(String nombre, int total){
 
     final TextStyle textStyleNumeros = new TextStyle(color: Colors.grey[700], fontSize: 14, fontWeight: FontWeight.bold);
@@ -172,7 +177,8 @@ class _CollectionPageState extends State<CollectionPage> {
     );
   }
 
-    _scrollListener() {
+  //no se si se usa
+  _scrollListener() {
     if (isShrink != lastStatus) {
       setState(() {
         lastStatus = isShrink;
@@ -180,11 +186,13 @@ class _CollectionPageState extends State<CollectionPage> {
     }
   }
 
+  //creo que se puede borrar TODO
   bool get isShrink {
     return _scrollController.hasClients &&
         _scrollController.offset > (200 - kToolbarHeight);
   }
 
+  //informacion sobre la coleccion
   Widget _infoColeccion(CollectionModel coleccion, double width){
     return Container(
           margin: EdgeInsets.only(top: 25.0),
@@ -199,10 +207,8 @@ class _CollectionPageState extends State<CollectionPage> {
                   tag: coleccion.title,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
-                    child: FadeInImage(
-                      placeholder: AssetImage(coleccion.photo), 
-                      image: AssetImage(coleccion.photo),
-                      fadeInDuration: Duration(milliseconds: 150),
+                    child: Image.file(
+                      File(coleccion.photo),
                       fit: BoxFit.cover,
                       width: 80,
                       height: 200,
@@ -249,6 +255,7 @@ class _CollectionPageState extends State<CollectionPage> {
         );
   }
 
+  //seleccionar las opciones de filtro
   _opcionesFilter(BuildContext context, CollectionModel cm ){
     showDialog(
       context: context,

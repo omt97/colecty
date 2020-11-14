@@ -71,7 +71,7 @@ class UserBloc {
     if (user != null){
       this.uid = user.uid;
       this.color = user.color;
-      this.email = email;
+      this.email = user.email;
     }
 
     print(this.uid.toString() + ' ---- ' + this.color.toString() + ' ---- ' + this.email.toString());

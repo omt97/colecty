@@ -2,7 +2,7 @@ import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
 import 'package:colecty/src/pages/home/home_page.dart';
-import 'package:colecty/src/pages/home/settings_page.dart';
+import 'package:colecty/src/pages/home/setting/settings_page.dart';
 import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/create_collection.dart';
 

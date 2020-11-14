@@ -103,109 +103,111 @@ class _SignInState extends State<SignIn> {
             padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
             child: Form(
               key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 100),
-                  Image(image: AssetImage('assets/logo.png'), width: 150,),
-                  SizedBox(height: 50),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 2.0)
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 150),
+                    Image(image: AssetImage('assets/logo.png'), width: 150,),
+                    SizedBox(height: 125),
+                    /*TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Email',
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white, width: 2.0)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red, width: 2.0)
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red, width: 2.0)
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (val) => RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val) ? null : 'Enter email',
-                    onChanged: (val){
-                      setState(() {
-                        email = val;
-                      });
-                    }
-                  ),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white, width: 2.0)
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red, width: 2.0)
-                      ),
-                    ),
-                    validator: (val) => val.length < 6 ? 'Enter password 6 character length' : null,
-                    obscureText: true,
-                    onChanged: (val){
-                      setState(() {
-                        password = val;
-                      });
-                    }
-                  ),
-                  SizedBox(height: 20),
-                  RaisedButton(
-                    color: Colors.deepPurple,
-                    child: Text('Log in', style: TextStyle(color: Colors.white),),
-                    onPressed: () async{
-                      if(_formKey.currentState.validate()){
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (val) => RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(val) ? null : 'Enter email',
+                      onChanged: (val){
                         setState(() {
-                          loading = true;
+                          email = val;
                         });
-                        dynamic result = await _userBloc.loginWithEmailAndPassword(email, password);
-                        print(result);
-                        if (result == null){
+                      }
+                    ),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white, width: 2.0)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red, width: 2.0)
+                        ),
+                      ),
+                      validator: (val) => val.length < 6 ? 'Enter password 6 character length' : null,
+                      obscureText: true,
+                      onChanged: (val){
+                        setState(() {
+                          password = val;
+                        });
+                      }
+                    ),
+                    SizedBox(height: 20),
+                    RaisedButton(
+                      color: Colors.deepPurple,
+                      child: Text('Log in', style: TextStyle(color: Colors.white),),
+                      onPressed: () async{
+                        if(_formKey.currentState.validate()){
                           setState(() {
-                            error = 'Please put a valid email';
+                            loading = true;
+                          });
+                          dynamic result = await _userBloc.loginWithEmailAndPassword(email, password);
+                          print(result);
+                          if (result == null){
+                            setState(() {
+                              error = 'Please put a valid email';
+                              loading = false;
+                            });
+                          }
+                        }
+                      },
+                    ),
+                    TextButton(
+                      onPressed: () { Navigator.pushNamed(context, 'register');}, 
+                      child: Text('Regiser', style: TextStyle(color: Colors.red),)
+                    ),
+                    SizedBox(height: 20),
+                    Text(error, style: TextStyle(color: Colors.red),),*/
+                    Container(
+                      height: 45,
+                      width: 185, 
+                      child: RaisedButton(
+                        color: Colors.white,
+                        elevation: 0,
+                        focusElevation: 0,
+                        disabledElevation: 0,
+                        highlightElevation: 0,
+                        hoverElevation: 0,
+                        shape: StadiumBorder(),
+                        child: Row( 
+                          children: <Widget>[
+                            Image(image: AssetImage('assets/logoGoogle.png'), width: 20,),
+                            Expanded(child: SizedBox(width: double.infinity,)),
+                            Text('Sign in with Google')
+                          ]
+                        ),
+                        onPressed: ()async{
+                          setState(() {
+                            loading = true;
+                          });
+                          dynamic result = await _userBloc.loginWithGoogle();
+                          print(result == null);
+                          setState(() {
                             loading = false;
                           });
                         }
-                      }
-                    },
-                  ),
-                  TextButton(
-                    onPressed: () { Navigator.pushNamed(context, 'register');}, 
-                    child: Text('Regiser', style: TextStyle(color: Colors.red),)
-                  ),
-                  SizedBox(height: 20),
-                  Text(error, style: TextStyle(color: Colors.red),),
-                  Container(
-                    height: 45,
-                    width: 185, 
-                    child: RaisedButton(
-                      color: Colors.white,
-                      elevation: 0,
-                      focusElevation: 0,
-                      disabledElevation: 0,
-                      highlightElevation: 0,
-                      hoverElevation: 0,
-                      shape: StadiumBorder(),
-                      child: Row( 
-                        children: <Widget>[
-                          Image(image: AssetImage('assets/logoGoogle.png'), width: 20,),
-                          Expanded(child: SizedBox(width: double.infinity,)),
-                          Text('Sign in with Google')
-                        ]
                       ),
-                      onPressed: ()async{
-                        setState(() {
-                          loading = true;
-                        });
-                        dynamic result = await _userBloc.loginWithGoogle();
-                        print(result == null);
-                        setState(() {
-                          loading = false;
-                        });
-                      }
-                    ),
-                  )
-                ]
+                    )
+                  ]
+                ),
               )
             )
           ),
