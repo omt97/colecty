@@ -19,6 +19,7 @@ class _ItemListState extends State<ItemList> {
 
   List<Item> _items;
   int _tengui;
+  bool _modificable;
 
   final coleccionesBloc = new ColeccionesBloc();
   final userBloc = new UserBloc();
@@ -34,6 +35,9 @@ class _ItemListState extends State<ItemList> {
 
     _items = widget.collectionModel.tenguis;
     _tengui = widget.collectionModel.noFaltas;
+    _modificable = widget.collectionModel.modificable;
+
+    print('-----------  $_modificable  ------------');
 
     final _screenSize = MediaQuery.of(context).size;
 
@@ -68,13 +72,8 @@ class _ItemListState extends State<ItemList> {
     var nuevaLista = items.getRange(numeroElementos*fila, items.length);
     if (numeroElementos > nuevaLista.length) elementosFila = nuevaLista.length;
 
-    //print(items.length);
-
-    //print(width.toString());
     elementos.add(Expanded(child: SizedBox(width: double.infinity,)));
     for (int i = 0; i < elementosFila; ++i){
-
-      //print(items[i + fila*numeroElementos].position);
 
       elementos.add(Container(
 
@@ -101,6 +100,7 @@ class _ItemListState extends State<ItemList> {
       height: 50,
       padding: EdgeInsets.all(2.5),
       child: new RaisedButton(
+        disabledColor: (item.quantity > 0) ? getAppColor(userBloc.color, 300) : Colors.transparent,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -109,16 +109,16 @@ class _ItemListState extends State<ItemList> {
         child: Center(child: Text(getNumeroName(name))),
         color: (item.quantity > 0) ? getAppColor(userBloc.color, 300) : Colors.transparent,
         textColor: (item.quantity > 0) ? Colors.white : getAppColor(userBloc.color, 300),
-        onLongPress: (){
-          setState(() {
-            if (item.quantity > 0) coleccionesBloc.restarItemCantidad(widget.collectionModel, item, _tengui);
-          });
-        },
-        onPressed: (){
-          setState(() {
-            coleccionesBloc.sumarItemCantidad(widget.collectionModel, item, _tengui);
-          });
-        },
+        onLongPress: _modificable ? () async{
+          await coleccionesBloc.changeModificable(false, widget.collectionModel);
+          if (item.quantity > 0) await coleccionesBloc.restarItemCantidad(widget.collectionModel, item, _tengui);
+          await coleccionesBloc.changeModificable(true, widget.collectionModel);
+        } : null,
+        onPressed: _modificable ? () async{
+          await coleccionesBloc.changeModificable(false, widget.collectionModel);
+          await coleccionesBloc.sumarItemCantidad(widget.collectionModel, item, _tengui);
+          await coleccionesBloc.changeModificable(true, widget.collectionModel);
+        } : null,
       ),
     );
   }

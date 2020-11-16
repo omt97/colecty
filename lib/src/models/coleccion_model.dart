@@ -17,7 +17,8 @@ class CollectionModel {
         this.repes,
         this.faltas,
         this.noFaltas,
-        this.favourite
+        this.favourite,
+        this.modificable
     });
 
     String uid;
@@ -30,6 +31,7 @@ class CollectionModel {
     int faltas;
     int noFaltas;
     bool favourite;
+    bool modificable;
 
     factory CollectionModel.fromJson(Map<String, dynamic> json) => CollectionModel(
         uid: json['uid'],

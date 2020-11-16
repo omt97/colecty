@@ -167,7 +167,6 @@ class _CreateCollectionState extends State<CreateCollection> {
 
   Widget _crearTotal(){
 
-    print(widget.collectionModel.total.toString());
 
     return Row(
       children: [
@@ -271,10 +270,6 @@ class _CreateCollectionState extends State<CreateCollection> {
     final fileName = p.basename(imageFile.path);
     final savedImage = await File(imageFile.path).copy('${appDir.path}/$fileName');
 
-    print(savedImage.path);
-
-
-    //print(imageFile.path);
 
     setState(() {
       photo = savedImage.path;

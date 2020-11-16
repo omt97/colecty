@@ -40,7 +40,6 @@ class UserBloc {
 
     UserModel user = await authProvider.registerWithEmailAndPassword(email, password);
     _userController.sink.add(user);
-    print(user.uid + ' registrado');
     uid = user.uid;
     color = user.color;
     email = user.email;
@@ -56,25 +55,19 @@ class UserBloc {
     color = user.color;
     email = user.email;
 
-    print(this.uid.toString() + ' ---- ' + this.color.toString() + ' ---- ' + this.email.toString());
-
     return user;
 
   }
 
   Future<dynamic> loginWithGoogle() async{
     UserModel user = await authProvider.loginGoogle();
-    print(user.email);
     user.color = await DatabaseProvider(uid: user.uid).obtenerColor();
     _userController.sink.add(user);
-    print('asa');
     if (user != null){
       this.uid = user.uid;
       this.color = user.color;
       this.email = user.email;
     }
-
-    print(this.uid.toString() + ' ---- ' + this.color.toString() + ' ---- ' + this.email.toString());
 
     return user;
   }

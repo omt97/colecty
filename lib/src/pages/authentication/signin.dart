@@ -160,7 +160,6 @@ class _SignInState extends State<SignIn> {
                             loading = true;
                           });
                           dynamic result = await _userBloc.loginWithEmailAndPassword(email, password);
-                          print(result);
                           if (result == null){
                             setState(() {
                               error = 'Please put a valid email';
@@ -199,7 +198,6 @@ class _SignInState extends State<SignIn> {
                             loading = true;
                           });
                           dynamic result = await _userBloc.loginWithGoogle();
-                          print(result == null);
                           setState(() {
                             loading = false;
                           });

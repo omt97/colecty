@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
@@ -5,6 +7,8 @@ import 'package:colecty/src/models/item_model.dart';
 import 'package:colecty/src/util/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart' as syspaths;
+import 'package:path/path.dart' as p;
 
 class EditItem extends StatefulWidget {
 
@@ -128,8 +132,8 @@ class _EditItemState extends State<EditItem> {
           
           ClipRRect(
             borderRadius: BorderRadius.circular(18.0),
-            child: Image(
-              image: AssetImage(photo),
+            child: Image.file(
+              File(photo),
               fit: BoxFit.cover,
               width: 150,
               height: 150,
@@ -209,7 +213,7 @@ class _EditItemState extends State<EditItem> {
     );
   }
 
-  Future _takePhoto(ImageSource origen) async{
+  /*Future _takePhoto(ImageSource origen) async{
     final _picker = ImagePicker();
 
     final imageFile = await _picker.getImage(source: origen);
@@ -220,6 +224,26 @@ class _EditItemState extends State<EditItem> {
 
     setState(() {
       photo = imageFile.path;
+    });
+    
+  }*/
+
+  Future _takePhoto(ImageSource origen) async{
+    final _picker = ImagePicker();
+
+    final imageFile = await _picker.getImage(source: origen);
+
+    if (imageFile == null) return null;
+
+    final appDir = await syspaths.getExternalStorageDirectory();
+    final fileName = p.basename(imageFile.path);
+    final savedImage = await File(imageFile.path).copy('${appDir.path}/$fileName');
+
+
+
+
+    setState(() {
+      photo = savedImage.path;
     });
     
   }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
@@ -20,6 +22,8 @@ class _ItemInfoListState extends State<ItemInfoList> {
 
   List<Item> _items;
   int _tengui;
+  String _photoCollection;
+  bool _modificar;
 
   final coleccionesBloc = new ColeccionesBloc();
   final userBloc = new UserBloc();
@@ -35,6 +39,8 @@ class _ItemInfoListState extends State<ItemInfoList> {
 
     _items = widget.collectionModel.tenguis;
     _tengui = widget.collectionModel.noFaltas;
+    _photoCollection = widget.collectionModel.photo;
+    _modificar = widget.collectionModel.modificable;
 
     return ListView.builder(
       itemCount: _obtenerListas(_items.length, 2),
@@ -112,9 +118,16 @@ class _ItemInfoListState extends State<ItemInfoList> {
               width: 175, 
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0), 
-                child: Image(image: AssetImage(item.photo), 
-                fit: BoxFit.cover,
-            ))),
+                child: item.photo != null 
+                  ? Image.file(File(item.photo), fit: BoxFit.cover) 
+                  : (_photoCollection != null)
+                    ? Opacity(
+                      opacity: 0.5,
+                      child: Image.file(File(_photoCollection), fit: BoxFit.cover,))
+                    : Image.asset(
+                      'assets/logo.png',
+                      fit: BoxFit.cover)
+            )),
             Expanded(child: SizedBox(height: double.infinity,)),
             Container(child: _infoItem(name, item ),)
           ],
@@ -132,13 +145,29 @@ class _ItemInfoListState extends State<ItemInfoList> {
         Row(
           children: <Widget>[
             IconButton(icon: Icon(Icons.remove_circle, size: 15,), 
-              onPressed: (item.quantity > 0) ? () {if (item.quantity > 0) coleccionesBloc.restarItemCantidad(widget.collectionModel, item, _tengui);} : null, color: getAppColor(userBloc.color, 700)
+              onPressed: 
+                (item.quantity > 0) 
+                ? (_modificar) 
+                  ? () async{
+                    await coleccionesBloc.changeModificable(false, widget.collectionModel);
+                    if (item.quantity > 0) await coleccionesBloc.restarItemCantidad(widget.collectionModel, item, _tengui);
+                    await coleccionesBloc.changeModificable(true, widget.collectionModel);
+                  }
+                  : null 
+                : null, color: getAppColor(userBloc.color, 700)
             ),
             Expanded(child: SizedBox(width: double.infinity,)),
             Text(item.quantity.toString()),
             Expanded(child: SizedBox(width: double.infinity,)),
             IconButton(icon: Icon(Icons.add_circle, size: 15,), 
-              onPressed: (){coleccionesBloc.sumarItemCantidad(widget.collectionModel, item, _tengui);}, color: getAppColor(userBloc.color, 700),
+              onPressed: (_modificar) 
+                  ? () async{
+                    await coleccionesBloc.changeModificable(false, widget.collectionModel);
+                    await coleccionesBloc.sumarItemCantidad(widget.collectionModel, item, _tengui);
+                    await coleccionesBloc.changeModificable(true, widget.collectionModel);
+                  }
+                  : null
+              , color: getAppColor(userBloc.color, 700),
             )
           ],
         )

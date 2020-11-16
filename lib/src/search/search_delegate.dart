@@ -1,7 +1,4 @@
-
-
 import 'dart:io';
-
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
@@ -130,10 +127,13 @@ class DataSearch extends SearchDelegate{
         tag: title,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15.0), 
-          child:Image.file(
+          child: photo != null ? Image.file(
             File(photo),
             fit: BoxFit.cover,
-          ),
+          ): Image.asset(
+            'assets/logo.png',
+            fit: BoxFit.cover,
+          )
         ),
       ),
     );

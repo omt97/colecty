@@ -39,7 +39,7 @@ class _CollectionCardsState extends State<CollectionCards> {
 
         if (colecciones.length == 0){
           return Center(
-            child: Text('No info')
+            child: Image.asset('assets/logo.png', color: getAppColor(userBloc.color, 50),)
           );
         }
 
@@ -154,10 +154,8 @@ class _CollectionCardsState extends State<CollectionCards> {
 
   Image _getImagen(String photo) {
     try{
-      print(photo.toString() + ' eeesttaa esss');
       return Image.file(File(photo), fit: BoxFit.cover,);
     } catch (e) {
-      print(e);
       return Image.asset('assets/logo.png', fit: BoxFit.cover);
     }
 

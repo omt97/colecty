@@ -55,23 +55,26 @@ class _CollectionPageState extends State<CollectionPage> {
         if (snapshot.hasData){
           final collectionModel = snapshot.data;
 
-          return  Scaffold(
-            body: Container(
-              child: Column(
-                children: [
-                  _crearAppBar(context, collectionModel, _screenSize.width),
-                  _tipoVista(_screenSize.width, coleccionesBloc.vista),
-                  SingleChildScrollView(
-                    child: Container(
+          return  WillPopScope(
+            onWillPop: () { coleccionesBloc.obtenerColecciones(); Navigator.pop(context); return null;},
+            child: Scaffold(
+              body: Container(
+                child: Column(
+                  children: [
+                    _crearAppBar(context, collectionModel, _screenSize.width),
+                    _tipoVista(_screenSize.width, coleccionesBloc.vista),
+                    SingleChildScrollView(
+                      child: Container(
 
-                        //color: Colors.green,
-                        height: _screenSize.height - 248,
-                        padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-                        child: Center(child: (coleccionesBloc.vista)?ItemList(collectionModel: collectionModel): ItemInfoList(collectionModel: collectionModel))
-                      ),
-                  )
-                ],
-              )
+                          //color: Colors.green,
+                          height: _screenSize.height - 248,
+                          padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+                          child: Center(child: (coleccionesBloc.vista)?ItemList(collectionModel: collectionModel): ItemInfoList(collectionModel: collectionModel))
+                        ),
+                    )
+                  ],
+                )
+              ),
             ),
           );
         } else {
@@ -149,7 +152,7 @@ class _CollectionPageState extends State<CollectionPage> {
       
       child: Stack(children: [
         Row(children: [
-          IconButton(color: getAppColor(userBloc.color, 800), icon: Icon(Icons.arrow_circle_down), onPressed: (){Navigator.pop(context);}),
+          IconButton(color: getAppColor(userBloc.color, 800), icon: Icon(Icons.arrow_circle_down), onPressed: (){coleccionesBloc.obtenerColecciones(); Navigator.pop(context);}),
           Expanded(child: SizedBox(width: double.infinity,)),
           IconButton(color: getAppColor(userBloc.color, 800), icon: Icon(Icons.filter_alt_rounded), onPressed: (){_opcionesFilter(context, coleccion);}),
         ],),
@@ -207,8 +210,13 @@ class _CollectionPageState extends State<CollectionPage> {
                   tag: coleccion.title,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
-                    child: Image.file(
+                    child: coleccion.photo != null ? Image.file(
                       File(coleccion.photo),
+                      fit: BoxFit.cover,
+                      width: 80,
+                      height: 200,
+                    ): Image.asset(
+                      'assets/logo.png',
                       fit: BoxFit.cover,
                       width: 80,
                       height: 200,
@@ -232,8 +240,6 @@ class _CollectionPageState extends State<CollectionPage> {
                           _numeroTexto('Marcada', coleccion.noFaltas),
                           Expanded(child: SizedBox(width: double.infinity,)),
                           _numeroTexto('Faltas', coleccion.faltas),
-                          Expanded(child: SizedBox(width: double.infinity,)),
-                          _numeroTexto('Repetidas', coleccion.repes),
                         ],
                       ),
                     ),

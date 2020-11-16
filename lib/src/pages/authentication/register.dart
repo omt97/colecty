@@ -90,7 +90,6 @@ class _RegisterState extends State<Register> {
                       loading = true;
                     });
                     dynamic result = await _userBloc.registerWithEmailAndPassword(email, password);
-                    print(result);
                     
                     if (result == null){
                       setState(() {

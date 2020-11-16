@@ -12,6 +12,7 @@ class ColeccionesBloc {
   String filtro = 'todas';
   String filtroItem = 'todas';
   bool vista = true;
+  bool apretar = true;
 
   UserBloc ub = new UserBloc();
 
@@ -49,14 +50,12 @@ class ColeccionesBloc {
     _coleccionesControllerSearch.sink.add(await DatabaseProvider(uid: ub.uid).coleccionesSearch(word));
   }
 
-  obtenerColeccion(CollectionModel cm) async{
-    print(filtroItem);
+  Future obtenerColeccion(CollectionModel cm) async{
     if (filtroItem == 'tengis') _coleccionController.sink.add(await DatabaseProvider(uid: ub.uid).coleccionTenguis(cm));
     else if (filtroItem == 'faltis') _coleccionController.sink.add(await DatabaseProvider(uid: ub.uid).coleccionFaltis(cm));
     else if (filtroItem == 'repes') _coleccionController.sink.add(await DatabaseProvider(uid: ub.uid).coleccionRepes(cm));
     else {
       CollectionModel c = await DatabaseProvider(uid: ub.uid).coleccion(cm);
-      print(c.noFaltas);
       _coleccionController.sink.add(c);
     }
     
@@ -85,7 +84,7 @@ class ColeccionesBloc {
 
   sumarItemCantidad(CollectionModel cm, Item item, int noFaltas) async{
     CollectionModel newCm = await DatabaseProvider(uid: ub.uid).sumarItem(cm, item, noFaltas);
-    obtenerColecciones();
+    //obtenerColecciones();
     obtenerColeccion(newCm);
   }
 
@@ -116,6 +115,12 @@ class ColeccionesBloc {
     
     if (eleccion == 'botones') vista = true;
     else vista = false;
+  }
+
+  Future changeModificable(bool modificable, CollectionModel cm) async{
+    cm.modificable = modificable;
+    print('se esta modificando');
+    await obtenerColeccion(cm);
   }
 
 

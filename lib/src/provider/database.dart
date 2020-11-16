@@ -19,8 +19,7 @@ class DatabaseProvider {
       'email' : user,
       'color' : 'lila'
     }).then((value) { 
-      //print(uid);
-      collectionCollection
+      /*collectionCollection
       .doc(uid)
       .collection("collections")
       .add({
@@ -85,7 +84,7 @@ class DatabaseProvider {
       });
 
 
-    });
+    */});
   }
       
   //existe user
@@ -97,7 +96,6 @@ class DatabaseProvider {
       .doc(uid).get().then((value) async{
         existe = (value.data() != null);
       });
-    print('existe     : --------' + existe.toString());
     return existe;
   }
 
@@ -211,6 +209,8 @@ class DatabaseProvider {
           'noFaltas' : noFaltas + 1
         }).then((value) {
           cm.noFaltas = noFaltas + 1;
+          cm.faltas = cm.faltas - 1;
+          cm.porcentage = cm.noFaltas/cm.total;
           return cm;
         });
     }
@@ -238,6 +238,8 @@ class DatabaseProvider {
           'noFaltas' : noFaltas - 1
         }).then((value) {
           cm.noFaltas = noFaltas - 1;
+          cm.faltas = cm.faltas + 1;
+          cm.porcentage = cm.noFaltas/cm.total;
           return cm;
         });
     }
@@ -495,7 +497,8 @@ class DatabaseProvider {
       repes       : 0,
       faltas      : data['total'] - data['noFaltas'],
       noFaltas    : data['noFaltas'],
-      favourite   : data['favourite']
+      favourite   : data['favourite'],
+      modificable : true 
     );
   }
 
@@ -519,7 +522,7 @@ class DatabaseProvider {
         .add({
           'name'     : i.toString() + ': item' + i.toString(),
           'cantidad' : 0,
-          'photo'    : ''
+          'photo'    : null
         });
   }
 
