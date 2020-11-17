@@ -141,7 +141,7 @@ class _ItemInfoListState extends State<ItemInfoList> {
 
     return Column(
       children: <Widget>[
-        Text(name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
+        Text(getNameSinNumero(name), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
         Row(
           children: <Widget>[
             IconButton(icon: Icon(Icons.remove_circle, size: 15,), 

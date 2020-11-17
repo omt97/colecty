@@ -77,4 +77,14 @@ class UserBloc {
     _userController.sink.add(null);
   }
 
+  Future changeColor(String colorNuevo) async{
+    this.color = colorNuevo;
+    await DatabaseProvider(uid: this.uid).modificarColor(colorNuevo);
+    _userController.sink.add(new UserModel(uid: this.uid, email: this.email, color: this.color));
+  }
+
+  void deleteAccount() {
+    
+  }
+
 }

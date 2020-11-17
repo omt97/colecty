@@ -111,7 +111,7 @@ class DatabaseProvider {
         'noFaltas'  : 0,
         'total'     : cm.total
       }).then((value) {
-        for (int i = 0; i < cm.total; ++i) _addItems(value, i);
+        for (int i = 1; i <= cm.total; ++i) _addItems(value, i);
       });
   }
 
@@ -486,6 +486,15 @@ class DatabaseProvider {
     return color;
   }
 
+  //modificar color usuario
+  Future modificarColor(String colorNuevo) async{
+    await collectionCollection
+      .doc(uid)
+      .update({
+        'color' : colorNuevo
+      });
+  }
+
   CollectionModel _crearCollectionModel(Map<String, dynamic> data, List<Item> items, String id) {
     return new CollectionModel(
       uid         : id,
@@ -540,6 +549,8 @@ class DatabaseProvider {
             return null;
         });
   }
+
+
 
 
 }

@@ -58,6 +58,7 @@ class _CollectionPageState extends State<CollectionPage> {
           return  WillPopScope(
             onWillPop: () { coleccionesBloc.obtenerColecciones(); Navigator.pop(context); return null;},
             child: Scaffold(
+              resizeToAvoidBottomPadding: false,
               body: Container(
                 child: Column(
                   children: [

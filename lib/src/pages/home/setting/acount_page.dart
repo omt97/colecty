@@ -2,15 +2,15 @@ import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/util/utils.dart';
 import 'package:flutter/material.dart';
 
-class AplicacionPage extends StatefulWidget {
+class AcountPage extends StatefulWidget {
 
-  static final routeName = 'applicacion';
+  static final routeName = 'cuenta';
 
   @override
-  _AplicacionPageState createState() => _AplicacionPageState();
+  _AcountPageState createState() => _AcountPageState();
 }
 
-class _AplicacionPageState extends State<AplicacionPage> {
+class _AcountPageState extends State<AcountPage> {
   final UserBloc ub = new UserBloc();
 
   @override
@@ -20,18 +20,28 @@ class _AplicacionPageState extends State<AplicacionPage> {
       appBar: AppBar(
           elevation: 0,
           backgroundColor: getAppColor(ub.color, 200),
-          title: Text('Aplicacion', style: TextStyle(color: getAppColor(ub.color, 500)),)
+          title: Text('Cuenta', style: TextStyle(color: getAppColor(ub.color, 500)),)
         ),
       body: Container(
         child: Column(
           children: [
-            Container(padding: EdgeInsets.all(20), child: Text('App Color', style: TextStyle(color: getAppColor(ub.color, 500), fontSize: 20),)),
-            _getColor(Colors.deepPurple, 'Lila'),
-            _getColor(Colors.red, 'Rojo'),
-            _getColor(Colors.brown, 'Marron'),
-            _getColor(Colors.green, 'Verde'),
-            _getColor(Colors.blue, 'Azul'),
-            _getColor(Colors.pink, 'Rosa'),
+            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.all(20), child: Text('Email', style: TextStyle(color: getAppColor(ub.color, 500), fontSize: 20),)),
+            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.all(20), child: Text(ub.email, style: TextStyle(color: Colors.grey[600], fontSize: 16),)),
+            Container(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                children: [
+                  Container(padding: EdgeInsets.all(20), child: Text('App Color', style: TextStyle(color: getAppColor(ub.color, 500), fontSize: 20),)),
+                  _getColor(Colors.deepPurple, 'Lila'),
+                  _getColor(Colors.red, 'Rojo'),
+                  _getColor(Colors.brown, 'Marron'),
+                  _getColor(Colors.green, 'Verde'),
+                  _getColor(Colors.blue, 'Azul'),
+                  _getColor(Colors.pink, 'Rosa'),
+                ],
+              ),
+            )
+            
           ],
         ),
       ),
@@ -67,4 +77,6 @@ class _AplicacionPageState extends State<AplicacionPage> {
     );
 
   }
+
+  
 }

@@ -29,7 +29,7 @@ class _SettingsState extends State<Settings> {
               icono: Icon(Icons.account_box, color: getAppColor(_userBloc.color, 500)), 
               texto:'Cuenta', 
               onPressed: () async{
-                
+                Navigator.pushNamed(context, 'cuenta');
               },
             ),
             Divider(thickness: 1.5,),

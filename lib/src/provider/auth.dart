@@ -103,6 +103,7 @@ class AuthProvider {
     });
   }
 
+
   //sign out
   Future signOut() async{
     
