@@ -1,15 +1,44 @@
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
+import 'package:colecty/src/provider/admob_service.dart';
 import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/barra_buscadora.dart';
 import 'package:colecty/src/widgets/collection_cards.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
 
   static final routeName = 'home';
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final coleccionesBloc = new ColeccionesBloc();
+  final ams = AdmobService();
+
+  BannerAd _bannerAd;
+
   final userBloc = new UserBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId: ams.getAdMobAppId());
+    _bannerAd = BannerAd(
+      adUnitId: ams.getBannerAdId(),
+      size: AdSize.banner,
+    );
+    _loadBannerAd();
+  }
+
+  @override
+  void dispose() { 
+    _bannerAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,4 +144,17 @@ class HomePage extends StatelessWidget {
       }
     );
   }
+
+  void _loadBannerAd() {
+    _bannerAd
+      ..load()
+      ..show(anchorType: AnchorType.top);
+  }
+
+  /*Widget _banner(){
+    return AdmobBanner(
+      adUnitId: ams.getBannerAdId(), 
+      adSize: AdmobBannerSize.FULL_BANNER
+    );
+  }*/
 }

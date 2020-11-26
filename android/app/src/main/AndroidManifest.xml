@@ -11,6 +11,9 @@
         android:label="colecty"
         android:icon="@mipmap/ic_launcher"
         android:requestLegacyExternalStorage="true">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1638571766725022~8808896333"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
