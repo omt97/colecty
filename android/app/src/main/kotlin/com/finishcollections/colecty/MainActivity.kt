@@ -1,4 +1,4 @@
-package com.example.colecty
+package com.finishcollections.colecty
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "222425130626-eknoc2pl9qk5fahlr4till5eso3ulafe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.finishcollections.colecty",
+            "certificate_hash": "4621685bbad203227feb0d00af19b3ba0ff91737"
+          }
+        },
+        {
           "client_id": "222425130626-lidlmdho8d93p68c8hdjeb5md62268ad.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -36,12 +44,13 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "222425130626-lidlmdho8d93p68c8hdjeb5md62268ad.apps.googleusercontent.com",
+              "client_id": "222425130626-3293rldmt1s96vf85btfjg5777jpaa4t.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-1638571766725022~8808896333"
     }
   ],
   "configuration_version": "1"

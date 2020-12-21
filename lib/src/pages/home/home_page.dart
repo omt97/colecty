@@ -1,10 +1,10 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/provider/admob_service.dart';
 import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/barra_buscadora.dart';
 import 'package:colecty/src/widgets/collection_cards.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,29 +19,30 @@ class _HomePageState extends State<HomePage> {
   final coleccionesBloc = new ColeccionesBloc();
   final ams = AdmobService();
 
-  BannerAd _bannerAd;
-
   final userBloc = new UserBloc();
 
   @override
   void initState() {
     super.initState();
-    FirebaseAdMob.instance.initialize(appId: ams.getAdMobAppId());
+    Admob.initialize();
+    //com.finishcollections.colecty
+    /*FirebaseAdMob.instance.initialize(appId: ams.getAdMobAppId());
     _bannerAd = BannerAd(
       adUnitId: ams.getBannerAdId(),
       size: AdSize.banner,
     );
-    _loadBannerAd();
+    _loadBannerAd();*/
   }
 
   @override
   void dispose() { 
-    _bannerAd?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    
 
     final _screenSize = MediaQuery.of(context).size;
 
@@ -65,6 +66,9 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 30.0),
             BarraBuscadora(),
             SizedBox(height: 0.0),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 10), 
+              child: AdmobBanner(adUnitId: ams.getBannerAdId(), adSize: AdmobBannerSize.FULL_BANNER,)),
             Row(children: <Widget>[
               Expanded(child: SizedBox(width: double.infinity,)),
               IconButton(icon: Icon(Icons.filter_alt, color: getAppColor(userBloc.color, 700),), onPressed: (){
@@ -80,7 +84,7 @@ class _HomePageState extends State<HomePage> {
               
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               width: _screenSize.width,
-              height: _screenSize.height - 213.0,
+              height: _screenSize.height - 255.0, //255
               child: CollectionCards(),
             )
           ],
@@ -145,11 +149,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _loadBannerAd() {
+  /*void _loadBannerAd() {
     _bannerAd
       ..load()
       ..show(anchorType: AnchorType.top);
-  }
+  }*/
 
   /*Widget _banner(){
     return AdmobBanner(

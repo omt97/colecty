@@ -45,7 +45,7 @@ class _EditItemState extends State<EditItem> {
       child: AlertDialog(
           backgroundColor: getAppColor(userBloc.color, 50),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Text('Nueva Coleccion', style: TextStyle(color: getAppColor(userBloc.color, 500),),),
+          title: Text('Editar Ítem', style: TextStyle(color: getAppColor(userBloc.color, 500),),),
           content: Container(
             height: 400,
             child: Form(
@@ -78,7 +78,7 @@ class _EditItemState extends State<EditItem> {
             initialValue: (title == null) ? '': getNameSinNumero(title),
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              labelText: 'Nombre Item'
+              labelText: 'Nombre Ítem'
             ),
             onSaved: (title) => this.title = numero + ': ' + title ,
             validator: (title){
@@ -166,6 +166,9 @@ class _EditItemState extends State<EditItem> {
 
   RaisedButton _botonEditar(BuildContext context){
     return RaisedButton.icon(
+      elevation: 0,
+      disabledElevation: 0,
+      highlightElevation: 0,
       onPressed: () async{
 
         if (!formKey.currentState.validate()) return;

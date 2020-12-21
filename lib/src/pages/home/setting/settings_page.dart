@@ -20,7 +20,7 @@ class _SettingsState extends State<Settings> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: getAppColor(_userBloc.color, 200),
-          title: Text('Settings', style: TextStyle(color: getAppColor(_userBloc.color, 500)),)
+          title: Text('Ajustes', style: TextStyle(color: getAppColor(_userBloc.color, 500)),)
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,14 +32,14 @@ class _SettingsState extends State<Settings> {
                 Navigator.pushNamed(context, 'cuenta');
               },
             ),
-            Divider(thickness: 1.5,),
+            /*Divider(thickness: 1.5,),
             _createButton(
               icono: Icon(Icons.app_settings_alt, color: getAppColor(_userBloc.color, 500)), 
               texto:'Aplicacion', 
               onPressed: () async{
                 Navigator.pushNamed(context, 'applicacion');
               },
-            ),
+            ),*/
             Divider(thickness: 1.5,),
             _createButton(
               icono: Icon(Icons.logout, color: getAppColor(_userBloc.color, 500)), 

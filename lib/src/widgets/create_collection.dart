@@ -45,21 +45,23 @@ class _CreateCollectionState extends State<CreateCollection> {
       child: AlertDialog(
           backgroundColor: getAppColor(userBloc.color, 50),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-          title: Text('Nueva Coleccion', style: TextStyle(color: getAppColor(userBloc.color, 500),),),
-          content: Container(
-            height: 400,
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: <Widget>[
-                  _crearNombre(),
-                  _crearTotal(),
-                  Expanded(child: SizedBox(height: double.infinity,)),
-                  _crearFoto(),
-                  SizedBox(height: 30.0),
-                  _crearBoton(context)
-                ],
-              )
+          title: Text('Nueva Colección', style: TextStyle(color: getAppColor(userBloc.color, 500),),),
+          content: SingleChildScrollView(
+            child: Container(
+              height: 400,
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: <Widget>[
+                    _crearNombre(),
+                    _crearTotal(),
+                    Expanded(child: SizedBox(height: double.infinity,)),
+                    _crearFoto(),
+                    SizedBox(height: 30.0),
+                    _crearBoton(context)
+                  ],
+                )
+              ),
             ),
           ),
         )
@@ -79,14 +81,14 @@ class _CreateCollectionState extends State<CreateCollection> {
             initialValue: (widget.collectionModel.title == null) ? '': widget.collectionModel.title,
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              labelText: 'Titulo Coleccion'
+              labelText: 'Título Colección'
             ),
             onSaved: (title) => this.title = title ,
             validator: (title){
               if(title.length > 0){
                 return null;
               } else {
-                return 'Introducir titulo';
+                return 'Introducir título';
               }
             }
           ),
@@ -180,7 +182,7 @@ class _CreateCollectionState extends State<CreateCollection> {
             keyboardType: TextInputType.numberWithOptions(decimal: true),
             //initialValue: '0',
             decoration: InputDecoration(
-              labelText: 'Total elementos'
+              labelText: 'Total Elementos'
             ),
             onSaved: (total) => this.total = int.parse(total) ,
             validator: (cantidad){
@@ -227,6 +229,9 @@ class _CreateCollectionState extends State<CreateCollection> {
 
   RaisedButton _botonEditar(BuildContext context){
     return RaisedButton.icon(
+      elevation: 0,
+      disabledElevation: 0,
+      highlightElevation: 0,
       onPressed: () async{
 
         if (!formKey.currentState.validate()) return;

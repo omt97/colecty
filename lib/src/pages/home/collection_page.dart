@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:colecty/src/bloc/colecciones_bloc.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/coleccion_model.dart';
+import 'package:colecty/src/provider/admob_service.dart';
 import 'package:colecty/src/util/utils.dart';
 import 'package:colecty/src/widgets/item_list.dart';
 import 'package:colecty/src/widgets/iteminfo_list.dart';
@@ -26,9 +28,11 @@ class _CollectionPageState extends State<CollectionPage> {
 
   final coleccionesBloc = new ColeccionesBloc();
   final userBloc = new UserBloc();
+  final ams = AdmobService();
 
   @override
   void initState() {
+    Admob.initialize();
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
         _scrollController = ScrollController();
@@ -68,11 +72,14 @@ class _CollectionPageState extends State<CollectionPage> {
                       child: Container(
 
                           //color: Colors.green,
-                          height: _screenSize.height - 248,
+                          height: _screenSize.height - 308, //308
                           padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
                           child: Center(child: (coleccionesBloc.vista)?ItemList(collectionModel: collectionModel): ItemInfoList(collectionModel: collectionModel))
                         ),
-                    )
+                    ),
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 10), 
+                      child: AdmobBanner(adUnitId: ams.getBannerItemAdId(), adSize: AdmobBannerSize.FULL_BANNER,)),
                   ],
                 )
               ),
@@ -101,7 +108,7 @@ class _CollectionPageState extends State<CollectionPage> {
         ), 
         minWidth: width/2, 
         child: RaisedButton(
-          child: Text('Item', style: TextStyle(color: vista ?  getAppColor(userBloc.color, 400) : Colors.grey[600]),),
+          child: Text('Ítem', style: TextStyle(color: vista ?  getAppColor(userBloc.color, 400) : Colors.grey[600]),),
           disabledElevation: 0,
           focusElevation: 0,
           highlightElevation: 0,
@@ -122,7 +129,7 @@ class _CollectionPageState extends State<CollectionPage> {
         ), 
         minWidth: width/2, 
         child: RaisedButton(
-          child: Text('Info Item', style: TextStyle(color: vista ? Colors.grey[600] : getAppColor(userBloc.color, 400)),),
+          child: Text('Info Ítem', style: TextStyle(color: vista ? Colors.grey[600] : getAppColor(userBloc.color, 400)),),
           disabledElevation: 0,
           focusElevation: 0,
           highlightElevation: 0,
@@ -238,7 +245,7 @@ class _CollectionPageState extends State<CollectionPage> {
                         children: <Widget>[
                           _numeroTexto('Total', coleccion.total),
                           Expanded(child: SizedBox(width: double.infinity,)),
-                          _numeroTexto('Marcada', coleccion.noFaltas),
+                          _numeroTexto('Marcados', coleccion.noFaltas),
                           Expanded(child: SizedBox(width: double.infinity,)),
                           _numeroTexto('Faltas', coleccion.faltas),
                         ],
@@ -290,7 +297,7 @@ class _CollectionPageState extends State<CollectionPage> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    'Marcadas', 
+                    'Marcados', 
                     style: TextStyle(color: coleccionesBloc.filtroItem == 'tengis' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
                 Divider(),
                 TextButton(
@@ -308,7 +315,7 @@ class _CollectionPageState extends State<CollectionPage> {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    'Repetidas', 
+                    'Repetidos', 
                     style: TextStyle(color: coleccionesBloc.filtroItem == 'repes' ? getAppColor(userBloc.color, 500) : Colors.grey),)),
 
               ]

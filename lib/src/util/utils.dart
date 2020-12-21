@@ -28,5 +28,6 @@ String getNumeroName(String palabra){
     else if (color == 'verde') return Colors.green[potencia + 100];
     else if (color == 'azul') return Colors.blue[potencia];
     else if (color == 'rosa') return Colors.pink[potencia];
+    else if (color == 'naranja') return Colors.orange[potencia];
 
   }

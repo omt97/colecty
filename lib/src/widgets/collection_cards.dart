@@ -111,6 +111,10 @@ class _CollectionCardsState extends State<CollectionCards> {
 
   Widget _infoColeccion(double width, CollectionModel collectionModel){
 
+    int textMax = ((width - 235)/18).truncate();// .round();
+
+    print(textMax);
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 15.0),
       width: width - 228.0,
@@ -122,16 +126,22 @@ class _CollectionCardsState extends State<CollectionCards> {
           Row(
             children: [
               Text(
-                collectionModel.title.length > 14 ? collectionModel.title.substring(0, 11) + '...' :  collectionModel.title,
+                collectionModel.title.length > (textMax + 2) ? collectionModel.title.substring(0, textMax + 2) + '...' :  collectionModel.title,
                 style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold)),
               Expanded(child: SizedBox(width: double.infinity,)),
               IconButton(
                 iconSize: 15,
+                padding: EdgeInsets.all(2),
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                //splashColor: Colors.transparent,
+                splashRadius: 15,
                 icon: Icon(Icons.favorite, color: collectionModel.favourite ? getAppColor(userBloc.color, 500) : Colors.grey,), 
                 onPressed: (){
                   collectionModel.favourite 
-                                            ? collectionBloc.coleccionFavorita(collectionModel.uid, false)
-                                            : collectionBloc.coleccionFavorita(collectionModel.uid, true);
+                    ? collectionBloc.coleccionFavorita(collectionModel.uid, false)
+                    : collectionBloc.coleccionFavorita(collectionModel.uid, true);
                 })
             ],
           ),

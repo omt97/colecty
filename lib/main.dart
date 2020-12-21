@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:colecty/src/bloc/user_bloc.dart';
 import 'package:colecty/src/models/user_model.dart';
 import 'package:colecty/src/pages/authentication/register.dart';
@@ -13,7 +14,10 @@ import 'package:provider/provider.dart';
  
 void main() { 
   WidgetsFlutterBinding.ensureInitialized();
+    // Initialize without device test ids
+  
   runApp(MyApp());
+  
 }
  
 class MyApp extends StatelessWidget {

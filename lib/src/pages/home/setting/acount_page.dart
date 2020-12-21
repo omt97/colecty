@@ -22,27 +22,30 @@ class _AcountPageState extends State<AcountPage> {
           backgroundColor: getAppColor(ub.color, 200),
           title: Text('Cuenta', style: TextStyle(color: getAppColor(ub.color, 500)),)
         ),
-      body: Container(
-        child: Column(
-          children: [
-            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.all(20), child: Text('Email', style: TextStyle(color: getAppColor(ub.color, 500), fontSize: 20),)),
-            Container(alignment: Alignment.centerLeft, padding: EdgeInsets.all(20), child: Text(ub.email, style: TextStyle(color: Colors.grey[600], fontSize: 16),)),
-            Container(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                children: [
-                  Container(padding: EdgeInsets.all(20), child: Text('App Color', style: TextStyle(color: getAppColor(ub.color, 500), fontSize: 20),)),
-                  _getColor(Colors.deepPurple, 'Lila'),
-                  _getColor(Colors.red, 'Rojo'),
-                  _getColor(Colors.brown, 'Marron'),
-                  _getColor(Colors.green, 'Verde'),
-                  _getColor(Colors.blue, 'Azul'),
-                  _getColor(Colors.pink, 'Rosa'),
-                ],
-              ),
-            )
-            
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: [
+              Container(alignment: Alignment.centerLeft, padding: EdgeInsets.all(20), child: Text('Email', style: TextStyle(color: getAppColor(ub.color, 500), fontSize: 20),)),
+              Container(alignment: Alignment.centerLeft, padding: EdgeInsets.all(20), child: Text(ub.email, style: TextStyle(color: Colors.grey[600], fontSize: 16),)),
+              Container(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: [
+                    Container(padding: EdgeInsets.all(20), child: Text('App Color', style: TextStyle(color: getAppColor(ub.color, 500), fontSize: 20),)),
+                    _getColor(Colors.deepPurple, 'Lila'),
+                    _getColor(Colors.red, 'Rojo'),
+                    _getColor(Colors.brown, 'Marron'),
+                    _getColor(Colors.green, 'Verde'),
+                    _getColor(Colors.blue, 'Azul'),
+                    _getColor(Colors.pink, 'Rosa'),
+                    _getColor(Colors.orange, 'Naranja'),
+                  ],
+                ),
+              )
+              
+            ],
+          ),
         ),
       ),
     );
@@ -50,7 +53,7 @@ class _AcountPageState extends State<AcountPage> {
 
   Widget _getColor(Color color, String textColor){
     return Container(
-      width: 100,
+      width: 120,
       child: RaisedButton(
         color: Colors.transparent,
         elevation: 0,

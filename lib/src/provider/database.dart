@@ -111,7 +111,7 @@ class DatabaseProvider {
         'noFaltas'  : 0,
         'total'     : cm.total
       }).then((value) {
-        for (int i = 1; i <= cm.total; ++i) _addItems(value, i);
+        for (int i = 1; i <= cm.total; ++i) {_addItems(value, i); print(i.toString());}
       });
   }
 
@@ -126,8 +126,8 @@ class DatabaseProvider {
           'total' : cm.total,
         }).then((value) {
           DocumentReference docRef = collectionCollection.doc(uid).collection('collections').doc(cm.uid);
-          if (cm.total > oldTotal) for (int i = oldTotal; i < cm.total; ++i) _addItems(docRef, i);
-          else if (cm.total < oldTotal) for (int i = oldTotal; i >= cm.total; --i) _deleteItems(docRef, i);
+          if (cm.total > oldTotal) for (int i = oldTotal; i <= cm.total; ++i) _addItems(docRef, i);
+          else if (cm.total < oldTotal) for (int i = oldTotal; i > cm.total; --i) _deleteItems(docRef, i);
             
         });
     }
@@ -529,7 +529,7 @@ class DatabaseProvider {
         .doc(value.id)
         .collection('items')
         .add({
-          'name'     : i.toString() + ': item' + i.toString(),
+          'name'     : i.toString() + ': ' + i.toString(),
           'cantidad' : 0,
           'photo'    : null
         });

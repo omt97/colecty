@@ -42,11 +42,13 @@ class _ItemInfoListState extends State<ItemInfoList> {
     _photoCollection = widget.collectionModel.photo;
     _modificar = widget.collectionModel.modificable;
 
+    final _screenSize = MediaQuery.of(context).size;
+
     return ListView.builder(
       itemCount: _obtenerListas(_items.length, 2),
       itemBuilder: (context, i){
         return Row(
-          children: _getButtons(2, _items, i)
+          children: _getButtons(2, _items, i, _screenSize.width)
           
         );
       }
@@ -63,7 +65,7 @@ class _ItemInfoListState extends State<ItemInfoList> {
 
   }
 
-  List<Widget> _getButtons(int numeroElementos, List<Item> items, int fila){
+  List<Widget> _getButtons(int numeroElementos, List<Item> items, int fila, double width){
     List<Widget> elementos = [];
 
     var elementosFila = numeroElementos;
@@ -82,7 +84,7 @@ class _ItemInfoListState extends State<ItemInfoList> {
       elementos.add(Container(
 
         margin: EdgeInsets.only(bottom: 14),
-        child: _buttonItem(i + fila*numeroElementos, items[i + fila*numeroElementos], items[i + fila*numeroElementos].name),
+        child: _buttonItem(i + fila*numeroElementos, items[i + fila*numeroElementos], items[i + fila*numeroElementos].name, width),
 
         ),
       );
@@ -92,7 +94,7 @@ class _ItemInfoListState extends State<ItemInfoList> {
     return elementos;
   }
 
-  Widget _buttonItem(int i, Item item, String name){
+  Widget _buttonItem(int i, Item item, String name, double width){
 
     return new GestureDetector(
       onLongPress: (){
@@ -103,8 +105,8 @@ class _ItemInfoListState extends State<ItemInfoList> {
         );
       },
       child: Container(
-        width: 175,
-        height: 250,
+        width: width/2 - 10,
+        height: 260,
         padding: EdgeInsets.all(2.5),
         //elevation: 0,
         decoration: BoxDecoration(
@@ -114,8 +116,8 @@ class _ItemInfoListState extends State<ItemInfoList> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 175, 
-              width: 175, 
+              height: width/2 - 10, 
+              width: width/2 - 10, 
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10.0), 
                 child: item.photo != null 
